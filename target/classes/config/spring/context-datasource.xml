@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/jdbc  http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd">
+    <!--  DBCP
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="net.bitnine.agensgraph.Driver"/>
+        <property name="url" value="jdbc:agensgraph://localhost:5432/postgres?ApplicationName=MyBatisTest"/>
+        <property name="username" value="bylee"/>
+        <property name="password" value="bylee"/>
+    </bean>
+    -->
+    
+    <!-- HikariCP -->
+    <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+	    <property name="poolName" value="springHikariCP" />
+	    <property name="connectionTestQuery" value="SELECT 1" />
+	    <property name="driverClassName"       value="net.bitnine.agensgraph.Driver" />
+	    <property name="jdbcUrl"       value="jdbc:agensgraph://localhost:5432/postgres?ApplicationName=MyBatisTest" />
+	    <property name="username" value="bylee"/>
+	    <property name="password" value="bylee"/>
+	    <property name="maxLifetime" value="0" />
+	</bean>
+	
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+	    <constructor-arg ref="hikariConfig" />
+	</bean>
+    
+</beans>
